@@ -1,52 +1,18 @@
-/* const data = [
-    "Gergely Kiss",
-    "Krisztián Bui",
-    "Buczkó Balázs",
-    "András Varga",
-    "Borbála Teréz Kovács",
-];
- */
+async function loadEvent() {
+    console.log("Page loaded :)");
 
-const data = [
-    {
-        name: "Gergely Kiss",
-        favouriteFood: "csirke/rizs",
-    },
-    {
-        name: "Krisztián Bui",
-        favouriteFood: "banán",
-    },
-    {
-        name: "Buczkó Balázs",
-        favouriteFood: "kolbászos rájás pizza",
-    },
-    {
-        name: "András Varga",
-        favouriteFood: "brassói",
-    },
-    {
-        name: "Borbála Teréz Kovács",
-        favouriteFood: "avokádó",
-    },
-    {
-        name: "Benett Viszokai",
-        favouriteFood: "alma",
-    },
-    {
-        name: "Krisztián Pörneczi",
-        favouriteFood: "almás pite",
-    },
-]
-function loadEvent() {
-    console.log("Page loaded :)")
+    const root = document.querySelector("#root");
 
-    const root = document.querySelector("#root")
+    const countryRes = await fetch("https://restcountries.com/v3.1/all");
+    const countryArr = await countryRes.json();
 
-    for (const frontendStudent of data){
+    //console.log(countryArr[0].name.common); //the 0th element's name part's official part
+    for (country  of countryArr) {
+        //console.log(country.name.common);
         root.insertAdjacentHTML("beforeend", `
             <section>
-                <h1>${frontendStudent.name}</h1>
-                <p>${frontendStudent.favouriteFood}</p>
+                <h1>${country.name.common}</h1>
+                <p>${country.region}</p>
             </section>
         `)
     }
